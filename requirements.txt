@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+lm_eval[gguf]
+accelerate
+pydantic
+matplotlib
