@@ -13,7 +13,7 @@ def run_evaluation():
             tasks=["hellaswag", "arc_easy"],
             num_fewshot=5,
             batch_size=8,
-            device="cpu",
+            device="cuda",
 )
         eval_resullts[model_name] = results["results"]
     except Exception as e:

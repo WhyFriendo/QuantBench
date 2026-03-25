@@ -6,7 +6,6 @@ from backend.services import eval_service
 router = APIRouter()
 
 class EvalRequest(BaseModel):
-    model_path: str
     tasks: List[str]
     limit: Optional[int] = None
 
@@ -22,7 +21,7 @@ def list_tasks():
 @router.post("/runs")
 def start_run(request: EvalRequest, background_tasks: BackgroundTasks):
     """Start a new benchmark run."""
-    run_id = eval_service.start_evaluation(request.model_path, request.tasks, request.limit, background_tasks)
+    run_id = eval_service.start_evaluation(request.tasks, request.limit, background_tasks)
     return {"run_id": run_id, "status": "pending"}
 
 @router.get("/runs")

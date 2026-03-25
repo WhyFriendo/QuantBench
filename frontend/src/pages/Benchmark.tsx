@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 export default function Benchmark() {
-    const [modelPath, setModelPath] = useState('');
     const [selectedTasks, setSelectedTasks] = useState<string[]>([]);
     const [availableTasks, setAvailableTasks] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
@@ -22,7 +21,7 @@ export default function Benchmark() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!modelPath || selectedTasks.length === 0) return;
+        if (selectedTasks.length === 0) return;
 
         setLoading(true);
         try {
@@ -30,7 +29,6 @@ export default function Benchmark() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    model_path: modelPath,
                     tasks: selectedTasks
                 })
             });
@@ -52,20 +50,6 @@ export default function Benchmark() {
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-8 space-y-8">
-                    <div className="space-y-3">
-                        <label className="block text-sm font-medium text-gray-700">
-                            GGUF Model Path (Local absolute path)
-                        </label>
-                        <input
-                            type="text"
-                            value={modelPath}
-                            onChange={(e) => setModelPath(e.target.value)}
-                            placeholder="C:\models\llama-2-7b.Q4_K_M.gguf"
-                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all font-mono text-sm shadow-sm"
-                            required
-                        />
-                    </div>
-
                     <div className="space-y-3">
                         <label className="block text-sm font-medium text-gray-700">
                             Select Evaluation Tasks
@@ -99,7 +83,7 @@ export default function Benchmark() {
                         </div>
                         <button
                             type="submit"
-                            disabled={loading || !modelPath || selectedTasks.length === 0}
+                            disabled={loading || selectedTasks.length === 0}
                             className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-colors shadow-md shadow-indigo-200 flex items-center gap-2"
                         >
                             {loading ? 'Starting...' : 'Start Evaluation'}

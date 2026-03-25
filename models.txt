@@ -1,0 +1,2 @@
+# Add your models here, one per line
+bartowski/microsoft_Phi-4-mini-instruct-GGUF,gguf_file=microsoft_Phi-4-mini-instruct-IQ2_M.gguf
